@@ -1,134 +1,98 @@
-Perfect — let’s make this feel premium, cinematic, and intentional, not just “an image sitting there.”
+// ===== Sticky Topbar =====
+const topbar = document.getElementById('topbar');
 
-Below is a drop-in header + footer system using your logo that will instantly elevate your site.
+function handleTopbar() {
+  if (!topbar) return;
 
-🎬 1. HEADER (CINEMATIC NAVBAR)
-✅ HTML
-<header class="indaba-header">
-  <div class="indaba-container">
-    <img src="indaba_header.png" alt="Indaba Stories Academy" class="indaba-logo">
-    
-    <nav class="indaba-nav">
-      <a href="#">Home</a>
-      <a href="#">Programs</a>
-      <a href="#">Schools</a>
-      <a href="#">Festival</a>
-      <a href="#">Contact</a>
-    </nav>
-  </div>
-</header>
-🎨 CSS
-.indaba-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(10, 10, 20, 0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  z-index: 1000;
+  if (window.scrollY > 12) {
+    topbar.classList.add('scrolled');
+  } else {
+    topbar.classList.remove('scrolled');
+  }
 }
 
-.indaba-container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 15px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+handleTopbar();
+window.addEventListener('scroll', handleTopbar);
+
+
+// ===== Mobile Nav Toggle =====
+const navToggle = document.getElementById('navToggle');
+const navMenu = document.getElementById('navMenu');
+
+if (navToggle && navMenu) {
+  navToggle.addEventListener('click', () => {
+    const isOpen = navMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
 }
 
-.indaba-logo {
-  height: 55px;
-  object-fit: contain;
-}
 
-.indaba-nav a {
-  color: #fff;
-  text-decoration: none;
-  margin-left: 25px;
-  font-size: 14px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  opacity: 0.85;
-  transition: 0.3s;
-}
+// ===== Reveal Animations =====
+const revealElements = document.querySelectorAll('.reveal');
 
-.indaba-nav a:hover {
-  opacity: 1;
-  color: #f4a62a;
-}
-🔥 Why this works
-Glass effect = modern + premium
-Tight logo height = clean + intentional
-Gold hover = matches your brand tone
-🎬 2. HERO SPACING FIX (IMPORTANT)
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
 
-Because header is fixed:
+revealElements.forEach(el => observer.observe(el));
 
-body {
-  margin: 0;
-  padding-top: 90px;
-  font-family: 'Segoe UI', sans-serif;
-  background: #0f0f1a;
-  color: #fff;
-}
-🎬 3. FOOTER (PREMIUM FILM BRAND STYLE)
-✅ HTML
-<footer class="indaba-footer">
-  <div class="indaba-footer-inner">
-    
-    <img src="indaba_footer.png" alt="Indaba Stories Academy" class="indaba-footer-logo">
-    
-    <p class="indaba-tagline">
-      Empowering the next generation of African storytellers.
-    </p>
 
-    <div class="indaba-socials">
-      <a href="#">Instagram</a>
-      <a href="#">YouTube</a>
-      <a href="#">WhatsApp</a>
-    </div>
+// ===== Hero Parallax =====
+const heroBg = document.getElementById('heroBg');
 
-    <p class="indaba-copy">
-      © 2026 Indaba Stories Academy. All rights reserved.
-    </p>
+window.addEventListener('mousemove', (e) => {
+  if (!heroBg || window.innerWidth < 900) return;
 
-  </div>
-</footer>
-🎨 CSS
-.indaba-footer {
-  background: #0a0a14;
-  padding: 60px 20px;
-  text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.05);
-}
+  const x = (e.clientX / window.innerWidth - 0.5) * 10;
+  const y = (e.clientY / window.innerHeight - 0.5) * 10;
 
-.indaba-footer-logo {
-  height: 45px;
-  margin-bottom: 20px;
-  opacity: 0.9;
-}
+  heroBg.style.transform = `scale(1.05) translate(${x}px, ${y}px)`;
+});
 
-.indaba-tagline {
-  font-size: 14px;
-  opacity: 0.7;
-  margin-bottom: 25px;
-}
 
-.indaba-socials a {
-  color: #f4a62a;
-  text-decoration: none;
-  margin: 0 10px;
-  font-size: 13px;
-  letter-spacing: 1px;
-}
+// ===== WhatsApp Form Handling =====
+const form = document.getElementById('schoolForm');
+const formStatus = document.getElementById('formStatus');
 
-.indaba-socials a:hover {
-  text-decoration: underline;
-}
+if (form) {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-.indaba-copy {
-  margin-top: 30px;
-  font-size: 12px;
-  opacity: 0.5;
+    const school = document.getElementById('school').value.trim();
+    const contact = document.getElementById('contact').value.trim();
+    const role = document.getElementById('role').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const interest = document.getElementById('interest').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    const text = `Indaba Stories Academy - School Enquiry
+
+School: ${school}
+Contact Person: ${contact}
+Role / Position: ${role}
+Phone Number: ${phone}
+Area of Interest: ${interest}
+Message: ${message}`;
+
+    formStatus.textContent = "Opening WhatsApp...";
+
+    const url = `https://wa.me/263716173131?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank', 'noopener');
+
+    setTimeout(() => {
+      formStatus.textContent = "Your enquiry has been prepared in WhatsApp.";
+    }, 1800);
+  });
 }
