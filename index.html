@@ -4,1266 +4,440 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Indaba Stories Academy</title>
-  <meta name="description" content="Indaba Stories Academy partners with schools in Bulawayo Urban to train students in storytelling and film while helping schools create premium, revenue-generating festival experiences." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg:#0f0b14;
-      --bg-2:#17101f;
-      --surface:rgba(255,255,255,.08);
-      --surface-2:rgba(255,255,255,.05);
-      --white:#ffffff;
-      --text:#f4f1f8;
-      --muted:rgba(255,255,255,.72);
-      --purple:#7d3cff;
-      --purple-2:#5f2167;
-      --gold:#e2b24a;
-      --gold-2:#c8932a;
-      --line:rgba(255,255,255,.12);
-      --shadow:0 30px 90px rgba(0,0,0,.35);
-      --shadow-sm:0 14px 34px rgba(0,0,0,.22);
-      --radius:24px;
-      --radius-lg:34px;
-      --max:1180px;
-      --transition:260ms ease;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:'Inter',sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(125,60,255,.18), transparent 28%),
-        radial-gradient(circle at bottom left, rgba(226,178,74,.11), transparent 24%),
-        linear-gradient(180deg, #0c0811 0%, #120c18 32%, #181121 100%);
-      color:var(--text);
-      line-height:1.65;
-      overflow-x:hidden;
-    }
-
-    a{text-decoration:none;color:inherit}
-    img{max-width:100%;display:block}
-    button,input,textarea,select{font:inherit}
-
-    .container{
-      width:min(var(--max), calc(100% - 28px));
-      margin:auto;
-    }
-
-    .grain{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:.08;
-      mix-blend-mode:soft-light;
-      background-image:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.35) 0 1px, transparent 1px),
-        radial-gradient(circle at 80% 40%, rgba(255,255,255,.35) 0 1px, transparent 1px),
-        radial-gradient(circle at 30% 80%, rgba(255,255,255,.25) 0 1px, transparent 1px);
-      background-size: 24px 24px, 28px 28px, 32px 32px;
-      z-index:1;
-    }
-
-    .site-shell{
-      position:relative;
-      z-index:2;
-    }
-
-    /* NAV */
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:1000;
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-      background:rgba(11,8,16,.54);
-      border-bottom:1px solid rgba(255,255,255,.06);
-      transition:var(--transition);
-    }
-
-    .topbar.scrolled{
-      background:rgba(11,8,16,.82);
-      box-shadow:0 12px 36px rgba(0,0,0,.28);
-    }
-
-    .nav{
-      min-height:82px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-    }
-
-    .brand-mark{
-      width:48px;
-      height:48px;
-      border-radius:16px;
-      display:grid;
-      place-items:center;
-      font-weight:800;
-      color:#140d18;
-      background:linear-gradient(135deg, var(--gold), #f0c86e);
-      box-shadow:0 16px 30px rgba(226,178,74,.24);
-      letter-spacing:.03em;
-    }
-
-    .brand-copy{
-      display:grid;
-      gap:2px;
-    }
-
-    .brand-copy strong{
-      font-size:.98rem;
-      line-height:1.1;
-      color:var(--white);
-      font-weight:800;
-    }
-
-    .brand-copy span{
-      color:var(--muted);
-      font-size:.82rem;
-    }
-
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:26px;
-    }
-
-    .nav-links a{
-      color:rgba(255,255,255,.86);
-      font-size:.95rem;
-      font-weight:600;
-      position:relative;
-      transition:var(--transition);
-    }
-
-    .nav-links a:not(.nav-cta)::after{
-      content:"";
-      position:absolute;
-      left:0;
-      bottom:-8px;
-      width:0;
-      height:2px;
-      background:linear-gradient(90deg, var(--gold), var(--purple));
-      transition:var(--transition);
-    }
-
-    .nav-links a:not(.nav-cta):hover{
-      color:#fff;
-    }
-
-    .nav-links a:not(.nav-cta):hover::after{
-      width:100%;
-    }
-
-    .nav-cta{
-      padding:12px 18px;
-      border-radius:999px;
-      background:linear-gradient(135deg, var(--purple), #9b67ff);
-      color:#fff !important;
-      box-shadow:0 14px 28px rgba(125,60,255,.24);
-    }
-
-    .nav-toggle{
-      display:none;
-      width:46px;
-      height:46px;
-      background:none;
-      border:none;
-      padding:0;
-      cursor:pointer;
-    }
-
-    .nav-toggle span{
-      display:block;
-      width:22px;
-      height:2px;
-      margin:5px auto;
-      background:#fff;
-      transition:var(--transition);
-    }
-
-    /* HERO */
-    .hero{
-      position:relative;
-      overflow:hidden;
-      min-height:100svh;
-      display:flex;
-      align-items:center;
-    }
-
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        linear-gradient(95deg, rgba(8,6,12,.88) 12%, rgba(8,6,12,.58) 48%, rgba(8,6,12,.54) 100%),
-        url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
-      transform:scale(1.04);
-      animation:heroZoom 18s ease-in-out infinite alternate;
-    }
-
-    .hero::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at 18% 24%, rgba(226,178,74,.18), transparent 20%),
-        radial-gradient(circle at 78% 18%, rgba(125,60,255,.18), transparent 24%),
-        linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.28));
-      pointer-events:none;
-    }
-
-    @keyframes heroZoom{
-      from{transform:scale(1.03)}
-      to{transform:scale(1.08)}
-    }
-
-    .hero-grid{
-      position:relative;
-      z-index:2;
-      width:100%;
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:34px;
-      align-items:center;
-      padding:92px 0 68px;
-    }
-
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:9px 14px;
-      margin-bottom:18px;
-      border-radius:999px;
-      background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.12);
-      color:#f3ddb1;
-      font-size:.78rem;
-      font-weight:800;
-      letter-spacing:.1em;
-      text-transform:uppercase;
-      backdrop-filter:blur(8px);
-    }
-
-    .hero h1{
-      margin:0 0 18px;
-      max-width:820px;
-      font-size:clamp(2.8rem, 6vw, 5.7rem);
-      line-height:1.01;
-      letter-spacing:-.04em;
-      text-wrap:balance;
-    }
-
-    .hero p{
-      max-width:720px;
-      margin:0 0 28px;
-      color:rgba(255,255,255,.84);
-      font-size:1.06rem;
-    }
-
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      margin-bottom:30px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:15px 22px;
-      border:none;
-      border-radius:999px;
-      font-weight:700;
-      cursor:pointer;
-      transition:var(--transition);
-    }
-
-    .btn:hover{
-      transform:translateY(-2px);
-    }
-
-    .btn-primary{
-      background:linear-gradient(135deg, var(--gold), #f1c15f);
-      color:#1c1409;
-      box-shadow:0 18px 34px rgba(226,178,74,.22);
-    }
-
-    .btn-primary:hover{
-      box-shadow:0 24px 42px rgba(226,178,74,.28);
-    }
-
-    .btn-secondary{
-      background:rgba(255,255,255,.08);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.14);
-      backdrop-filter:blur(8px);
-    }
-
-    .hero-points{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:14px;
-      max-width:760px;
-    }
-
-    .hero-point{
-      padding:18px;
-      border-radius:22px;
-      border:1px solid rgba(255,255,255,.12);
-      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.05));
-      box-shadow:var(--shadow-sm);
-      backdrop-filter:blur(10px);
-    }
-
-    .hero-point strong{
-      display:block;
-      margin-bottom:5px;
-      font-size:.98rem;
-      color:#fff;
-    }
-
-    .hero-point span{
-      display:block;
-      color:rgba(255,255,255,.76);
-      font-size:.94rem;
-    }
-
-    .hero-panel{
-      display:flex;
-      justify-content:flex-end;
-    }
-
-    .panel-card{
-      width:min(100%, 448px);
-      padding:30px;
-      border-radius:32px;
-      background:linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.06));
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(16px);
-      position:relative;
-      overflow:hidden;
-    }
-
-    .panel-card::before{
-      content:"";
-      position:absolute;
-      inset:auto -30px -30px auto;
-      width:150px;
-      height:150px;
-      border-radius:50%;
-      background:radial-gradient(circle, rgba(226,178,74,.28), transparent 68%);
-      pointer-events:none;
-    }
-
-    .panel-card h3{
-      margin:0 0 14px;
-      font-size:1.2rem;
-      color:#fff;
-    }
-
-    .panel-card ul{
-      margin:0;
-      padding-left:20px;
-    }
-
-    .panel-card li{
-      margin:10px 0;
-      color:rgba(255,255,255,.88);
-    }
-
-    /* SECTIONS */
-    .section{
-      padding:100px 0;
-      position:relative;
-    }
-
-    .section-soft{
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.015)),
-        linear-gradient(180deg, rgba(255,255,255,.015), rgba(255,255,255,.025));
-    }
-
-    .section-head{
-      max-width:780px;
-      margin:0 auto 42px;
-      text-align:center;
-    }
-
-    .section-tag{
-      display:inline-block;
-      margin-bottom:12px;
-      color:#f3ddb1;
-      font-size:.8rem;
-      font-weight:800;
-      letter-spacing:.1em;
-      text-transform:uppercase;
-    }
-
-    .section-tag.light{
-      color:#f4ddb0;
-    }
-
-    .section-head h2,
-    .copy-panel h2,
-    .banner-grid h2,
-    .enquiry-copy h2{
-      margin:0 0 14px;
-      font-size:clamp(2rem, 3.3vw, 3.3rem);
-      line-height:1.05;
-      letter-spacing:-.03em;
-      color:#fff;
-      text-wrap:balance;
-    }
-
-    .section-head p,
-    .copy-panel p,
-    .banner-grid p,
-    .enquiry-copy p{
-      margin:0;
-      color:var(--muted);
-      font-size:1rem;
-    }
-
-    /* STATS */
-    .stats-row{
-      padding-top:0;
-    }
-
-    .stats-grid{
-      margin-top:-42px;
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-      position:relative;
-      z-index:5;
-    }
-
-    .stat{
-      padding:24px;
-      border-radius:24px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow:var(--shadow-sm);
-      backdrop-filter:blur(12px);
-    }
-
-    .stat strong{
-      display:block;
-      margin-bottom:7px;
-      color:#fff;
-      font-size:1.05rem;
-    }
-
-    .stat span{
-      color:var(--muted);
-    }
-
-    /* CARDS */
-    .card-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:22px;
-    }
-
-    .info-card{
-      position:relative;
-      overflow:hidden;
-      padding:30px;
-      border-radius:28px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow:var(--shadow-sm);
-      transition:var(--transition);
-      backdrop-filter:blur(12px);
-    }
-
-    .info-card::before{
-      content:"";
-      position:absolute;
-      inset:0 0 auto 0;
-      height:2px;
-      background:linear-gradient(90deg, var(--gold), var(--purple));
-      opacity:0;
-      transition:var(--transition);
-    }
-
-    .info-card:hover{
-      transform:translateY(-6px);
-      box-shadow:var(--shadow);
-    }
-
-    .info-card:hover::before{
-      opacity:1;
-    }
-
-    .icon-wrap{
-      width:56px;
-      height:56px;
-      display:grid;
-      place-items:center;
-      margin-bottom:18px;
-      border-radius:18px;
-      background:linear-gradient(135deg, rgba(226,178,74,.18), rgba(125,60,255,.18));
-      color:#fff;
-      font-weight:800;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
-    }
-
-    .info-card h3{
-      margin:0 0 10px;
-      font-size:1.16rem;
-      color:#fff;
-    }
-
-    .info-card p{
-      margin:0;
-      color:var(--muted);
-    }
-
-    /* SPLIT */
-    .split{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:42px;
-      align-items:center;
-    }
-
-    .split-reverse .copy-panel{order:1}
-    .split-reverse .image-panel{order:2}
-
-    .image-panel{
-      position:relative;
-    }
-
-    .image-panel::after{
-      content:"";
-      position:absolute;
-      right:-16px;
-      bottom:-16px;
-      width:130px;
-      height:130px;
-      border-radius:34px;
-      background:linear-gradient(135deg, rgba(226,178,74,.18), rgba(125,60,255,.14));
-      filter:blur(2px);
-      z-index:0;
-    }
-
-    .image-panel img{
-      position:relative;
-      z-index:1;
-      width:100%;
-      min-height:500px;
-      object-fit:cover;
-      border-radius:32px;
-      box-shadow:var(--shadow);
-    }
-
-    .copy-panel p{
-      margin-bottom:24px;
-    }
-
-    .stack-list{
-      display:grid;
-      gap:14px;
-    }
-
-    .stack-item{
-      padding:18px;
-      border-radius:22px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
-      box-shadow:var(--shadow-sm);
-      transition:var(--transition);
-      backdrop-filter:blur(10px);
-    }
-
-    .stack-item:hover{
-      transform:translateY(-3px);
-      box-shadow:var(--shadow);
-    }
-
-    .stack-item strong{
-      display:block;
-      margin-bottom:5px;
-      color:#fff;
-    }
-
-    .stack-item span{
-      color:var(--muted);
-    }
-
-    /* TIMELINE */
-    .timeline{
-      max-width:940px;
-      margin:0 auto;
-      display:grid;
-      gap:18px;
-    }
-
-    .timeline-item{
-      display:grid;
-      grid-template-columns:74px 1fr;
-      gap:18px;
-      padding:24px;
-      border-radius:26px;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      box-shadow:var(--shadow-sm);
-      transition:var(--transition);
-      backdrop-filter:blur(10px);
-    }
-
-    .timeline-item:hover{
-      transform:translateY(-4px);
-      box-shadow:var(--shadow);
-    }
-
-    .step{
-      width:54px;
-      height:54px;
-      display:grid;
-      place-items:center;
-      border-radius:18px;
-      background:linear-gradient(135deg, var(--purple), #9a63ff);
-      color:#fff;
-      font-weight:800;
-      box-shadow:0 18px 28px rgba(125,60,255,.24);
-    }
-
-    .timeline-item h3{
-      margin:0 0 8px;
-      color:#fff;
-    }
-
-    .timeline-item p{
-      margin:0;
-      color:var(--muted);
-    }
-
-    /* MINI BANNER */
-    .mini-banner{
-      background:
-        radial-gradient(circle at top left, rgba(226,178,74,.15), transparent 22%),
-        linear-gradient(135deg, #461154, #2b1238 80%);
-      border-top:1px solid rgba(255,255,255,.06);
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-
-    .banner-grid{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:24px;
-    }
-
-    .banner-grid p{
-      max-width:740px;
-      color:rgba(255,255,255,.76);
-    }
-
-    /* FORM */
-    .enquiry-wrap{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:28px;
-      padding:32px;
-      border-radius:34px;
-      border:1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.045));
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(14px);
-    }
-
-    .enquiry-copy p{
-      max-width:540px;
-    }
-
-    .enquiry-form{
-      padding:26px;
-      border-radius:28px;
-      border:1px solid rgba(255,255,255,.1);
-      background:rgba(255,255,255,.06);
-      box-shadow:var(--shadow-sm);
-      backdrop-filter:blur(10px);
-    }
-
-    .field-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-
-    .enquiry-form input,
-    .enquiry-form textarea,
-    .enquiry-form select{
-      width:100%;
-      margin-bottom:12px;
-      padding:15px 16px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.1);
-      background:rgba(255,255,255,.06);
-      color:#fff;
-      transition:var(--transition);
-    }
-
-    .enquiry-form input::placeholder,
-    .enquiry-form textarea::placeholder{
-      color:rgba(255,255,255,.5);
-    }
-
-    .enquiry-form select{
-      color:rgba(255,255,255,.78);
-    }
-
-    .enquiry-form option{
-      color:#111;
-    }
-
-    .enquiry-form textarea{
-      min-height:130px;
-      resize:vertical;
-    }
-
-    .enquiry-form input:focus,
-    .enquiry-form textarea:focus,
-    .enquiry-form select:focus{
-      outline:none;
-      border-color:rgba(226,178,74,.45);
-      box-shadow:0 0 0 4px rgba(226,178,74,.09);
-    }
-
-    .form-note{
-      margin:12px 0 0;
-      color:rgba(255,255,255,.62);
-      font-size:.92rem;
-    }
-
-    /* FOOTER */
-    .footer{
-      padding:34px 0 48px;
-      background:transparent;
-    }
-
-    .footer-grid{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      flex-wrap:wrap;
-      border-top:1px solid rgba(255,255,255,.08);
-      padding-top:22px;
-    }
-
-    .footer-grid strong{
-      display:block;
-      color:#fff;
-    }
-
-    .footer-grid span,
-    .footer-grid p{
-      margin:0;
-      color:var(--muted);
-    }
-
-    /* REVEAL */
-    .reveal{
-      opacity:0;
-      transform:translateY(28px);
-      transition:opacity .85s ease, transform .85s ease;
-    }
-
-    .reveal.active{
-      opacity:1;
-      transform:none;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 980px){
-      .nav-toggle{display:block}
-
-      .nav-links{
-        position:absolute;
-        top:78px;
-        right:14px;
-        left:14px;
-        display:none;
-        flex-direction:column;
-        align-items:stretch;
-        gap:10px;
-        padding:16px;
-        border-radius:22px;
-        border:1px solid rgba(255,255,255,.1);
-        background:rgba(15,11,20,.96);
-        box-shadow:var(--shadow);
-      }
-
-      .nav-links.open{display:flex}
-
-      .nav-cta{text-align:center}
-
-      .hero-grid,
-      .split,
-      .enquiry-wrap{
-        grid-template-columns:1fr;
-      }
-
-      .hero{
-        min-height:auto;
-      }
-
-      .hero-grid{
-        padding:78px 0 66px;
-      }
-
-      .hero-panel{
-        justify-content:flex-start;
-      }
-
-      .stats-grid,
-      .card-grid{
-        grid-template-columns:1fr;
-      }
-
-      .field-grid{
-        grid-template-columns:1fr;
-      }
-
-      .banner-grid{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-
-      .image-panel img{
-        min-height:340px;
-      }
-
-      .hero-points{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media (max-width: 640px){
-      .container{
-        width:min(var(--max), calc(100% - 22px));
-      }
-
-      .nav{
-        min-height:74px;
-      }
-
-      .brand-copy strong{
-        font-size:.92rem;
-      }
-
-      .hero h1{
-        font-size:2.45rem;
-      }
-
-      .section{
-        padding:76px 0;
-      }
-
-      .panel-card,
-      .enquiry-form{
-        padding:20px;
-      }
-
-      .timeline-item{
-        grid-template-columns:1fr;
-      }
-
-      .image-panel::after{
-        display:none;
-      }
-    }
-  </style>
+  <meta
+    name="description"
+    content="Indaba Stories Academy partners with schools to train students in storytelling and film, while helping schools build premium festival experiences with income potential."
+  />
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="grain"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
 
-  <div class="site-shell">
-    <header class="topbar" id="topbar">
-      <div class="container nav">
-        <a class="brand" href="#home" aria-label="Indaba Stories Academy home">
-          <div class="brand-mark">IS</div>
-          <div class="brand-copy">
-            <strong>Indaba Stories Academy</strong>
-            <span>Bulawayo Urban</span>
+  <header class="topbar" id="topbar">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Indaba Stories Academy home">
+        <img
+          src="assets/logo/indaba-logo-white.png"
+          alt="Indaba Stories Academy"
+          class="brand-logo brand-logo-light"
+        />
+        <img
+          src="assets/logo/indaba-logo.png"
+          alt="Indaba Stories Academy"
+          class="brand-logo brand-logo-dark"
+        />
+      </a>
+
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="navMenu"
+      >
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav-links" id="navMenu">
+        <a href="#about">About</a>
+        <a href="#schools">For Schools</a>
+        <a href="#students">For Students</a>
+        <a href="#experience">Festival Experience</a>
+        <a href="#process">How It Works</a>
+        <a href="#partner" class="nav-cta">Partner With Us</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-bg" id="heroBg"></div>
+      <div class="hero-overlay"></div>
+
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">School Partnerships • Student Development • Premium Festival Experiences</span>
+
+          <h1>
+            Build students.
+            <span class="gradient-text">Elevate schools.</span>
+            Stage unforgettable storytelling experiences.
+          </h1>
+
+          <p>
+            Indaba Stories Academy partners with schools to train students in storytelling, confidence,
+            communication, teamwork, and practical film skills — then helps schools transform that work
+            into premium showcase events that can attract parents, sponsors, and community support.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#partner" class="btn btn-primary">Request a School Partnership</a>
+            <a href="#process" class="btn btn-secondary">See How It Works</a>
           </div>
-        </a>
 
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
-          <span></span><span></span><span></span>
-        </button>
+          <div class="hero-points">
+            <div class="hero-point">
+              <strong>For schools</strong>
+              <span>Premium event experiences, stronger visibility, and new fundraising potential.</span>
+            </div>
+            <div class="hero-point">
+              <strong>For students</strong>
+              <span>Confidence, communication, teamwork, media exposure, and practical creative growth.</span>
+            </div>
+          </div>
+        </div>
 
-        <nav class="nav-links" id="navMenu">
-          <a href="#about">About</a>
-          <a href="#schools">For Schools</a>
-          <a href="#students">For Students</a>
-          <a href="#process">How It Works</a>
-          <a href="#partner" class="nav-cta">Partner With Us</a>
-        </nav>
+        <div class="hero-panel reveal">
+          <div class="panel-card">
+            <div class="panel-top">
+              <span class="panel-pill">What a school partnership can include</span>
+            </div>
+
+            <h3>Designed to feel prestigious, practical, and high-value.</h3>
+
+            <ul>
+              <li>Student storytelling and film training</li>
+              <li>Creative team development inside the school</li>
+              <li>Mini-festival or showcase planning support</li>
+              <li>Red carpet style event presentation</li>
+              <li>Stronger community, parent, and sponsor appeal</li>
+            </ul>
+
+            <div class="panel-divider"></div>
+
+            <div class="panel-metrics">
+              <div>
+                <strong>Premium</strong>
+                <span>school-facing experience</span>
+              </div>
+              <div>
+                <strong>Structured</strong>
+                <span>from training to showcase</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </header>
 
-    <main id="home">
-      <section class="hero">
-        <div class="container hero-grid">
-          <div class="hero-copy reveal">
-            <span class="eyebrow">School Partnerships • Student Development • Festival Revenue</span>
-            <h1>Helping schools create income while preparing students for life through storytelling and film.</h1>
-            <p>
-              Indaba Stories Academy partners with schools in Bulawayo Urban to train students in storytelling,
-              communication, teamwork, and practical media skills — then helps schools turn that work into
-              premium mini-festival experiences that can attract parents, sponsors, and community support.
-            </p>
-
-            <div class="hero-actions">
-              <a href="#partner" class="btn btn-primary">Request a School Partnership</a>
-              <a href="#process" class="btn btn-secondary">See How It Works</a>
-            </div>
-
-            <div class="hero-points">
-              <div class="hero-point">
-                <strong>For schools</strong>
-                <span>New event-based fundraising and stronger school visibility.</span>
-              </div>
-              <div class="hero-point">
-                <strong>For students</strong>
-                <span>Confidence, communication, teamwork, and practical media exposure.</span>
-              </div>
-            </div>
+      <div class="hero-reel reveal">
+        <div class="container reel-grid">
+          <div class="reel-card">
+            <span>Student Training</span>
           </div>
+          <div class="reel-card">
+            <span>School Festivals</span>
+          </div>
+          <div class="reel-card">
+            <span>Red Carpet Moments</span>
+          </div>
+          <div class="reel-card">
+            <span>Awards & Recognition</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="hero-panel reveal">
-            <div class="panel-card">
-              <h3>What schools get</h3>
-              <ul>
-                <li>Student storytelling and film training</li>
-                <li>Support to build a student media team</li>
-                <li>A structured mini-festival format</li>
-                <li>Sponsorship and event visibility thinking</li>
-                <li>A premium school-facing creative program</li>
-              </ul>
+    <section class="section stats-row">
+      <div class="container stats-grid">
+        <div class="stat reveal">
+          <strong>Students</strong>
+          <span>gain practical life-ready communication, teamwork, and storytelling skills</span>
+        </div>
+        <div class="stat reveal">
+          <strong>Schools</strong>
+          <span>get a premium creative program with event and income potential</span>
+        </div>
+        <div class="stat reveal">
+          <strong>Community</strong>
+          <span>gets a stronger reason to engage with and support school excellence</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag">What we do</span>
+          <h2>A practical school program with cinematic appeal and real educational value.</h2>
+          <p>
+            We do not just teach students to make films. We help schools build a meaningful journey —
+            from training and teamwork to a premium final showcase that feels memorable, aspirational,
+            and worth supporting.
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card reveal">
+            <div class="icon-wrap">01</div>
+            <h3>Student Training</h3>
+            <p>Students develop storytelling, filming, speaking, collaboration, planning, and confidence.</p>
+          </article>
+
+          <article class="info-card reveal">
+            <div class="icon-wrap">02</div>
+            <h3>Festival Showcase</h3>
+            <p>We help schools shape polished showcase experiences that feel exciting, elevated, and school-proud.</p>
+          </article>
+
+          <article class="info-card reveal">
+            <div class="icon-wrap">03</div>
+            <h3>Income Potential</h3>
+            <p>Schools can explore tickets, sponsorships, adverts, donor support, and premium event positioning.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="schools">
+      <div class="container split">
+        <div class="image-panel reveal">
+          <img
+            src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1400&q=80"
+            alt="Audience at a school style event"
+          />
+        </div>
+
+        <div class="copy-panel reveal">
+          <span class="section-tag">For schools</span>
+          <h2>Why schools partner with Indaba Stories Academy</h2>
+          <p>
+            This is not just an arts activity. It is a structured program that can support student growth,
+            strengthen school image, and open the door to more premium, better-supported school events.
+          </p>
+
+          <div class="stack-list">
+            <div class="stack-item">
+              <strong>Supports student growth</strong>
+              <span>Builds confidence, communication, teamwork, responsibility, and discipline.</span>
+            </div>
+            <div class="stack-item">
+              <strong>Creates a premium school event</strong>
+              <span>Gives parents and the community something memorable and meaningful to support.</span>
+            </div>
+            <div class="stack-item">
+              <strong>Strengthens school image</strong>
+              <span>Positions the school as modern, creative, and serious about future-facing learning.</span>
+            </div>
+            <div class="stack-item">
+              <strong>Opens income opportunities</strong>
+              <span>Creates room for tickets, sponsor support, advertising, and event partnerships.</span>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section stats-row">
-        <div class="container stats-grid">
-          <div class="stat reveal">
-            <strong>Students</strong>
-            <span>gain life-ready communication and teamwork skills</span>
-          </div>
-          <div class="stat reveal">
-            <strong>Schools</strong>
-            <span>get an event model with income potential</span>
-          </div>
-          <div class="stat reveal">
-            <strong>Bulawayo Urban</strong>
-            <span>is our current focus area</span>
-          </div>
-        </div>
-      </section>
+    <section class="section" id="students">
+      <div class="container split split-reverse">
+        <div class="copy-panel reveal">
+          <span class="section-tag">For students</span>
+          <h2>Training that goes beyond film.</h2>
+          <p>
+            The goal is bigger than production skills. We want students to become more confident,
+            expressive, collaborative, and better prepared for life after school.
+          </p>
 
-      <section class="section" id="about">
-        <div class="container">
-          <div class="section-head reveal">
-            <span class="section-tag">What we do</span>
-            <h2>A practical school program with real educational and financial value.</h2>
-            <p>
-              We do not just teach students to make films. We help schools run a structured program that develops
-              students while creating a premium event the wider school community can support.
-            </p>
-          </div>
-
-          <div class="card-grid">
-            <article class="info-card reveal">
-              <div class="icon-wrap">01</div>
-              <h3>Student Training</h3>
-              <p>Students learn storytelling, filming, communication, teamwork, planning, and creative confidence.</p>
-            </article>
-
-            <article class="info-card reveal">
-              <div class="icon-wrap">02</div>
-              <h3>School Festivals</h3>
-              <p>We help schools shape strong mini-festival experiences that showcase student work to parents and partners.</p>
-            </article>
-
-            <article class="info-card reveal">
-              <div class="icon-wrap">03</div>
-              <h3>School Income Potential</h3>
-              <p>Festivals can be structured around tickets, sponsorships, advertising, and community support.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-soft" id="schools">
-        <div class="container split">
-          <div class="image-panel reveal">
-            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1400&q=80" alt="Audience at a school style event" />
-          </div>
-
-          <div class="copy-panel reveal">
-            <span class="section-tag">For schools</span>
-            <h2>Why schools partner with Indaba Stories Academy</h2>
-            <p>
-              This is not just an arts activity. It is a structured program that can support student development,
-              improve school visibility, and open new event-based fundraising opportunities.
-            </p>
-
-            <div class="stack-list">
-              <div class="stack-item">
-                <strong>Supports student growth</strong>
-                <span>Builds confidence, communication, teamwork, responsibility, and discipline.</span>
-              </div>
-              <div class="stack-item">
-                <strong>Creates a premium school event</strong>
-                <span>Gives parents and the community a meaningful event to support.</span>
-              </div>
-              <div class="stack-item">
-                <strong>Strengthens school image</strong>
-                <span>Positions the school as modern, creative, and serious about future-facing learning.</span>
-              </div>
-              <div class="stack-item">
-                <strong>Opens income opportunities</strong>
-                <span>Creates room for tickets, sponsor support, advertising, and event partnerships.</span>
-              </div>
+          <div class="stack-list">
+            <div class="stack-item">
+              <strong>Confidence</strong>
+              <span>Students learn to present ideas and speak with clarity and presence.</span>
+            </div>
+            <div class="stack-item">
+              <strong>Teamwork</strong>
+              <span>They solve problems together and experience the discipline of shared responsibility.</span>
+            </div>
+            <div class="stack-item">
+              <strong>Communication</strong>
+              <span>Storytelling sharpens how students think, express themselves, and connect with others.</span>
+            </div>
+            <div class="stack-item">
+              <strong>Practical exposure</strong>
+              <span>They gain hands-on insight into media, content creation, and creative project flow.</span>
             </div>
           </div>
         </div>
-      </section>
 
-      <section class="section" id="students">
-        <div class="container split split-reverse">
-          <div class="copy-panel reveal">
-            <span class="section-tag">For students</span>
-            <h2>Training that goes beyond film.</h2>
-            <p>
-              Our aim is not only to help students create strong work. It is to help them become more confident,
-              expressive, collaborative, and better prepared for life after school.
-            </p>
+        <div class="image-panel reveal">
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=80"
+            alt="Students collaborating"
+          />
+        </div>
+      </div>
+    </section>
 
-            <div class="stack-list">
-              <div class="stack-item">
-                <strong>Confidence</strong>
-                <span>Students learn to present ideas and speak with greater clarity.</span>
-              </div>
-              <div class="stack-item">
-                <strong>Teamwork</strong>
-                <span>They work together, solve problems, and take ownership of a shared result.</span>
-              </div>
-              <div class="stack-item">
-                <strong>Communication</strong>
-                <span>Storytelling sharpens how students think, express themselves, and connect with others.</span>
-              </div>
-              <div class="stack-item">
-                <strong>Practical skills</strong>
-                <span>They gain real exposure to media, content creation, and creative problem-solving.</span>
-              </div>
+    <section class="section section-soft" id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag">Festival experience</span>
+          <h2>More than a screening — an Oscars-like school moment.</h2>
+          <p>
+            The final experience should feel special. Not just students watching videos in a hall,
+            but a true occasion that celebrates effort, excellence, and school pride.
+          </p>
+        </div>
+
+        <div class="card-grid">
+          <article class="info-card reveal">
+            <div class="icon-wrap">A</div>
+            <h3>Arrival & Atmosphere</h3>
+            <p>Red carpet arrival, branded welcome area, photography moments, ushering, and visual polish.</p>
+          </article>
+
+          <article class="info-card reveal">
+            <div class="icon-wrap">B</div>
+            <h3>Show Flow</h3>
+            <p>Hosts, curated program order, category reveals, applause moments, and strong audience pacing.</p>
+          </article>
+
+          <article class="info-card reveal">
+            <div class="icon-wrap">C</div>
+            <h3>Recognition</h3>
+            <p>Awards, certificates, spotlight moments, student acknowledgement, and sponsor visibility.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-tag">How it works</span>
+          <h2>A clean, school-first process.</h2>
+          <p>
+            We keep the model simple: partner with the school, train the students, and help shape a premium school event.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <span class="step">1</span>
+            <div>
+              <h3>School partnership</h3>
+              <p>We align on the school’s goals, timing, structure, and the format of support required.</p>
             </div>
           </div>
 
-          <div class="image-panel reveal">
-            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1400&q=80" alt="Students collaborating" />
+          <div class="timeline-item reveal">
+            <span class="step">2</span>
+            <div>
+              <h3>Student training</h3>
+              <p>Students are guided through storytelling, collaboration, production thinking, and team-based work.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <span class="step">3</span>
+            <div>
+              <h3>Showcase development</h3>
+              <p>We help shape a polished presentation with room for audience excitement, school pride, and revenue opportunities.</p>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section section-soft" id="process">
-        <div class="container">
-          <div class="section-head reveal">
-            <span class="section-tag">How it works</span>
-            <h2>A clean, school-first process.</h2>
-            <p>
-              We keep the model simple: partner with the school, train the students, and help shape a premium school event.
-            </p>
-          </div>
-
-          <div class="timeline">
-            <div class="timeline-item reveal">
-              <span class="step">1</span>
-              <div>
-                <h3>School partnership</h3>
-                <p>We align on the school’s goals, timing, and the type of program or festival support needed.</p>
-              </div>
-            </div>
-            <div class="timeline-item reveal">
-              <span class="step">2</span>
-              <div>
-                <h3>Student training</h3>
-                <p>We guide students through storytelling, film, collaboration, and practical team-based work.</p>
-              </div>
-            </div>
-            <div class="timeline-item reveal">
-              <span class="step">3</span>
-              <div>
-                <h3>Festival development</h3>
-                <p>We support the school in shaping a showcase experience with room for audience support and revenue.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section mini-banner">
-        <div class="container banner-grid reveal">
-          <div>
-            <span class="section-tag light">Current focus</span>
-            <h2>Bulawayo Urban first.</h2>
-            <p>
-              We are currently focused on schools in Bulawayo Urban, with plans to expand to other towns and cities over time.
-            </p>
-          </div>
-          <a href="#partner" class="btn btn-primary">Start the conversation</a>
-        </div>
-      </section>
-
-      <section class="section" id="partner">
-        <div class="container">
-          <div class="enquiry-wrap reveal">
-            <div class="enquiry-copy">
-              <span class="section-tag">Partner with us</span>
-              <h2>Bring Indaba Stories Academy to your school.</h2>
-              <p>
-                We are currently opening partnerships with a limited number of schools in Bulawayo Urban.
-                If your school is interested in student training, a school mini-festival, or a broader partnership,
-                send us your details and we will continue the conversation on WhatsApp.
-              </p>
-            </div>
-
-            <form class="enquiry-form" id="schoolForm">
-              <div class="field-grid">
-                <input type="text" id="school" placeholder="School name" required />
-                <input type="text" id="contact" placeholder="Contact person" required />
-              </div>
-
-              <div class="field-grid">
-                <input type="text" id="role" placeholder="Role / position" required />
-                <input type="text" id="phone" placeholder="Phone number" required />
-              </div>
-
-              <select id="interest" required>
-                <option value="">Area of interest</option>
-                <option>Student film training</option>
-                <option>School mini festival</option>
-                <option>Student media team development</option>
-                <option>Full school partnership</option>
-              </select>
-
-              <textarea id="message" rows="5" placeholder="Tell us a little about your school and what you would like to explore"></textarea>
-
-              <button type="submit" class="btn btn-primary" style="width:100%;">Submit School Enquiry</button>
-              <p id="formStatus" class="form-note">Your enquiry will open in WhatsApp to 0716173131.</p>
-            </form>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="container footer-grid">
+    <section class="section mini-banner">
+      <div class="container banner-grid reveal">
         <div>
-          <strong>Indaba Stories Academy</strong>
-          <span>Powered by Indie263 • Bulawayo Urban</span>
+          <span class="section-tag light">Current focus</span>
+          <h2>Bulawayo first. Built to grow.</h2>
+          <p>
+            We are currently focused on schools in Bulawayo, with the intention to expand into wider markets over time.
+          </p>
         </div>
-        <p>Helping schools grow income while helping students face life better.</p>
+        <a href="#partner" class="btn btn-primary">Start the conversation</a>
       </div>
-    </footer>
-  </div>
+    </section>
 
-  <script>
-    const topbar = document.getElementById('topbar');
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    const revealEls = document.querySelectorAll('.reveal');
-    const form = document.getElementById('schoolForm');
-    const formStatus = document.getElementById('formStatus');
+    <section class="section" id="partner">
+      <div class="container">
+        <div class="enquiry-wrap reveal">
+          <div class="enquiry-copy">
+            <span class="section-tag">Partner with us</span>
+            <h2>Bring Indaba Stories Academy to your school.</h2>
+            <p>
+              We are opening partnerships with a limited number of schools. If your school is interested in
+              training, a school mini-festival, or a broader partnership, send us your details and continue
+              the conversation on WhatsApp.
+            </p>
+          </div>
 
-    function handleTopbar() {
-      if (window.scrollY > 12) {
-        topbar.classList.add('scrolled');
-      } else {
-        topbar.classList.remove('scrolled');
-      }
-    }
+          <form class="enquiry-form" id="schoolForm">
+            <div class="field-grid">
+              <input type="text" id="school" placeholder="School name" required />
+              <input type="text" id="contact" placeholder="Contact person" required />
+            </div>
 
-    handleTopbar();
-    window.addEventListener('scroll', handleTopbar);
+            <div class="field-grid">
+              <input type="text" id="role" placeholder="Role / position" required />
+              <input type="text" id="phone" placeholder="Phone number" required />
+            </div>
 
-    if (navToggle && navMenu) {
-      navToggle.addEventListener('click', () => {
-        const isOpen = navMenu.classList.toggle('open');
-        navToggle.setAttribute('aria-expanded', String(isOpen));
-      });
+            <select id="interest" required>
+              <option value="">Area of interest</option>
+              <option>Student film training</option>
+              <option>School mini festival</option>
+              <option>Student media team development</option>
+              <option>Full school partnership</option>
+            </select>
 
-      navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('open');
-          navToggle.setAttribute('aria-expanded', 'false');
-        });
-      });
-    }
+            <textarea
+              id="message"
+              rows="5"
+              placeholder="Tell us a little about your school and what you would like to explore"
+            ></textarea>
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.14 });
+            <button type="submit" class="btn btn-primary btn-full">Submit School Enquiry</button>
+            <p id="formStatus" class="form-note">Your enquiry will open in WhatsApp to 0716173131.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    revealEls.forEach(el => observer.observe(el));
+  <footer class="footer">
+    <div class="container footer-main">
+      <div class="footer-brand">
+        <img
+          src="assets/logo/indaba-logo-footer.png"
+          alt="Indaba Stories Academy"
+          class="footer-logo"
+        />
+        <p>Empowering the next generation of African storytellers through schools, students, and premium showcase experiences.</p>
+      </div>
 
-    if (form) {
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#schools">Schools</a>
+        <a href="#students">Students</a>
+        <a href="#process">Process</a>
+        <a href="#partner">Contact</a>
+      </div>
+    </div>
 
-        const school = document.getElementById('school').value.trim();
-        const contact = document.getElementById('contact').value.trim();
-        const role = document.getElementById('role').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const interest = document.getElementById('interest').value.trim();
-        const message = document.getElementById('message').value.trim();
+    <div class="container footer-bottom">
+      <span>© 2026 Indaba Stories Academy. All rights reserved.</span>
+      <span>Powered by Indie263 • Bulawayo</span>
+    </div>
+  </footer>
 
-        const text = `Indaba Stories Academy - School Enquiry
-
-School: ${school}
-Contact Person: ${contact}
-Role / Position: ${role}
-Phone Number: ${phone}
-Area of Interest: ${interest}
-Message: ${message}`;
-
-        formStatus.textContent = 'Opening WhatsApp...';
-        const whatsappUrl = `https://wa.me/263716173131?text=${encodeURIComponent(text)}`;
-        window.open(whatsappUrl, '_blank', 'noopener');
-
-        setTimeout(() => {
-          formStatus.textContent = 'Your enquiry has been prepared in WhatsApp.';
-        }, 1800);
-      });
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
